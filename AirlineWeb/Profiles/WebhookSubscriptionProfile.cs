@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using AirlineWeb.Dtos;
+﻿using AirlineWeb.Dtos;
 using AirlineWeb.Models;
+using AutoMapper;
 
 namespace AirlineWeb.Profiles;
 
