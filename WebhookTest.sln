@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlineWeb", "AirlineWeb\AirlineWeb.csproj", "{E71EC988-9051-4EAC-9BEF-ED3066E6347B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlineSendAgent", "AirlineSendAgent\AirlineSendAgent.csproj", "{08823F33-F423-4A93-9A8D-EC5508B51D04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgentWeb", "TravelAgentWeb\TravelAgentWeb.csproj", "{EB336BAF-2D22-4048-8D86-6928B5E34F46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{E71EC988-9051-4EAC-9BEF-ED3066E6347B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E71EC988-9051-4EAC-9BEF-ED3066E6347B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E71EC988-9051-4EAC-9BEF-ED3066E6347B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08823F33-F423-4A93-9A8D-EC5508B51D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08823F33-F423-4A93-9A8D-EC5508B51D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08823F33-F423-4A93-9A8D-EC5508B51D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08823F33-F423-4A93-9A8D-EC5508B51D04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB336BAF-2D22-4048-8D86-6928B5E34F46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB336BAF-2D22-4048-8D86-6928B5E34F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB336BAF-2D22-4048-8D86-6928B5E34F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB336BAF-2D22-4048-8D86-6928B5E34F46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
