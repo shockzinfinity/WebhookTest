@@ -1,5 +1,6 @@
 ﻿using AirlineWeb.Data;
 using AirlineWeb.Dtos;
+using AirlineWeb.MessageBus;
 using AirlineWeb.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +14,14 @@ public class FlightsController : ControllerBase
   private readonly ILogger<FlightsController> _logger;
   private readonly AirlineDbContext _dbContext;
   private readonly IMapper _mapper;
+  private readonly IMessageBusClient _messageBus;
 
-  public FlightsController(ILogger<FlightsController> logger, AirlineDbContext dbContext, IMapper mapper)
+  public FlightsController(ILogger<FlightsController> logger, AirlineDbContext dbContext, IMapper mapper, IMessageBusClient messageBus)
   {
     _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+    _messageBus = messageBus ?? throw new ArgumentNullException(nameof(messageBus));
   }
 
   [HttpGet("{flightCode}", Name = "GetFlightDetailsByCode")]
@@ -61,13 +64,36 @@ public class FlightsController : ControllerBase
   {
     var flight = _dbContext.FlightDetails.FirstOrDefault(f => f.Id == id);
 
-    if(flight == null) {
+    if (flight == null) {
       return NotFound();
     }
 
-    _mapper.Map(flightDetailUpdateDto, flight);
-    _dbContext.SaveChanges();
+    decimal oldPrice = flight.Price;
 
-    return NoContent();
+    _mapper.Map(flightDetailUpdateDto, flight);
+
+    try {
+      _dbContext.SaveChanges();
+
+      if(oldPrice != flight.Price) {
+        Console.WriteLine("Price changed - Place message on message bus");
+
+        var message = new NotificationMessageDto
+        {
+          WebhookType = "pricechange",
+          OldPrice = oldPrice,
+          NewPrice = flight.Price,
+          FlightCode = flight.FlightCode
+        };
+
+        _messageBus.SendMessage(message);
+      } else {
+        Console.WriteLine("No price changed");
+      }
+
+      return NoContent();
+    } catch (Exception ex) {
+      return BadRequest(ex.Message);
+    }
   }
 }
